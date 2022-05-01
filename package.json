@@ -1,5 +1,5 @@
 {
-  "name": "jack",
+  "name": "i-want-chick-fil-a",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "setup": "node ./node_modules/puppeteer-core/install.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/dotenv-safe": "^8.1.2",
     "@types/puppeteer": "^5.4.4",
