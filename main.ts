@@ -22,15 +22,20 @@ const start = async (): Promise<void> => {
   await page.click('button[data-cy=Pickup]')
   await pause(5)
   await page.focus('input[data-cy=LocationSearch]')
-  await typeLikeHuman(page, 'input[data-cy=LocationSearch]', 'Wilmington, NC')
+  await typeLikeHuman(page, 'input[data-cy=LocationSearch]', 'San Diego, CA')
   await pause(2)
   await page.click('button[data-cy=FindRestaurants]')
   await pause(5)
-  await page.hover('button[title~=Independence]')
+  await page.hover('button[title~=Mission]')
   await pause(1)
-  await page.click('button[title~=Independence]')
+  await page.click('button[title~=Mission]')
   await pause(2)
   await page.click('button[data-cy=Carry-out]')
+
+  await page.waitForNavigation()
+  await pause(2)
+  await page.click('button[data-cy=PrimaryConfirmButton]')
+
   await pause(5)
   await page.click('button[data-cy=MOBILE_ENTREES]')
   await pause(2)
@@ -49,24 +54,35 @@ const start = async (): Promise<void> => {
   await page.click('button[data-cy=AddToOrder]')
 
 
-  console.log('about to click button[data-cy=Cart]')
-  await page.waitForNavigation()
-  const myCartButton = await page.waitForSelector('button[data-cy=Cart]');
+  console.log('--About to click button[data-cy=Cart]')
+  await pause(5)
+  await page.evaluate(() => {
+      (document.querySelector('button[data-cy=Cart]') as HTMLButtonElement).click()
+  })
+
   await pause(3.0)
-  await myCartButton.click()
+
+
   await page.click('button[data-cy=CheckOut]')
   await pause(2.0)
   await page.hover('button[data-cy=CheckOutSignInButton]')
   await page.click('button[data-cy=CheckOutSignInButton]')
-  await pause(2.0)
-  await page.focus('input[name=pf.username]')
-  await typeLikeHuman(page, 'input[name=pf.username]', 'zaytesthacz@mailinator.com')
+  await page.waitForNavigation()
+  await pause(5.0)
 
+  await page.evaluate(() => {
+      (
+          document.querySelector('input[name=pf\\.username]') as HTMLInputElement
+      ).focus()
+  })
+  // await page.focus('input[name=pf.username]')
+  await typeLikeHuman(page, 'input[name=pf\\.username]', 'zaytesthacz@mailinator.com')
+
+  await pause(2)
+  await page.focus('input[name=pf\\.pass]')
+  await typeLikeHuman(page, 'input[name=pf\\.pass]', '4hV(6Y2+NKEEG$-m')
   await pause(1.2)
-  await page.focus('input[name=pf.pass]')
-  await typeLikeHuman(page, 'input[name=pf.pass]', '4hV(6Y2+NKEEG$-m')
-  await pause(1.2)
-  await page.click('button[name=pf.ok]')
+  await page.click('button[name=pf\\.ok]')
   await pause(10)
 }
 
